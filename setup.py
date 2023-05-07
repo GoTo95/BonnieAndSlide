@@ -1,11 +1,8 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-    # Needed to silence warnings (and to be a worthwhile package)
-    name='Bonnieandslide',
+    name='BonnieAndSlide',
     url='https://github.com/GoTo95/BonnieAndSlide',
-    # *strongly* suggested for sharing
-    version='0.1',
-    # The license can be anything you like
-    license='MIT'
+    packages=find_packages(),
+    version='1.0'
 )
