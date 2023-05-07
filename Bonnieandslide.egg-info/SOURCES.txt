@@ -1,0 +1,7 @@
+setup.py
+Bonnieandslide.egg-info/PKG-INFO
+Bonnieandslide.egg-info/SOURCES.txt
+Bonnieandslide.egg-info/dependency_links.txt
+Bonnieandslide.egg-info/top_level.txt
+libs/main.py
+libs/test.py
