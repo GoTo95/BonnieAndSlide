@@ -12,10 +12,10 @@ def get_token(client):
 
 
 def main(event, context, ):
-    client = Client(host='rc1b-ckq1cemqvctvesog.mdb.yandexcloud.net',
+    client = Client(host='',
                     settings={'use_numpy': True},
-                    user='black_master',
-                    password='vjsj338SSnbgv',
+                    user='',
+                    password='',
                     port=9440,
                     secure=True,
                     verify=True,
