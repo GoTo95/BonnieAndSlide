@@ -45,10 +45,10 @@ def main(get_data_func, table_name, update_field_date, last_date):
     step = 500
     if len(df) > 0:
         for i in range(0, len(df), step):
-            delete_query = '''
+            delete_query = f'''
                 ALTER TABLE {table_name} DELETE WHERE id IN ({})
             '''.format(','.join(map(str, df.iloc[i:i + step]['id'].values)))
             client.execute(delete_query)
-            client.insert_dataframe('INSERT INTO {table_name} VALUES', df.iloc[i:i + step])
+            client.insert_dataframe(f'INSERT INTO {table_name} VALUES', df.iloc[i:i + step])
 
     return {'Rows inserted': len(df)}
