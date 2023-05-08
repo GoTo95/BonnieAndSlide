@@ -20,7 +20,7 @@ def get_last_date(client, table, field_name, last_date='2022-01-01 00:00:01'):
     check_query = '''
         select if(max({{field_name}}) = CAST('1970-01-01 00:00:01', 'datetime'), CAST('2022-01-01 00:00:01', 'datetime'),MAX({{field_name}})) as max_date
         from {{table}}
-    '''
+    '''.format({'field_name': field_name, 'table': table})
     print(check_query)
     return str(client.execute(check_query)[0][0])
 
