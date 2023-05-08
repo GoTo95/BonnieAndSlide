@@ -7,4 +7,4 @@ from bas.raw.amo_tasks import get_tasks
 from bas.raw.amo_users import get_users
 from bas.raw.orders import get_orders
 from bas.raw.payments import get_payments
-from bas.raw.amo_mails import get_mails
+from bas.raw.amo_company_notes import get_company_notes

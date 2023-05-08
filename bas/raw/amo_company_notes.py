@@ -2,17 +2,8 @@ import requests
 import pandas as pd
 import numpy as np
 from datetime import datetime
-import warnings
 
-warnings.filterwarnings('ignore')
-
-
-def get_token(client):
-    access_token = client.execute("SELECT token FROM db1.tokens WHERE type = 'access_token'")[0][0]
-    return access_token
-
-
-def get_mails(date_from, token):
+def get_company_notes(date_from, token):
     _url = 'https://testbonnieandslide.amocrm.ru/api/v4/companies/notes'
     headers = {
         "Authorization": "Bearer " + token
@@ -22,8 +13,9 @@ def get_mails(date_from, token):
 
     params = {
         'page': 1,
-        'filter[note_type]': 'amomail_message',
+        'filter[note_type]': 'amomail_message,call_in,call_out',
         "filter[updated_at][from]": int(date_from.timestamp()),
+        "filter[updated_at][to]": int(datetime.now().timestamp()),
         "limit": 250
     }
 
@@ -47,9 +39,11 @@ def get_mails(date_from, token):
             print(f'http status code is {status}')
             break
 
-    needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'responsible_user_id']
+    needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'responsible_user_id', 'note_type']
 
     df = df[needed_columns]
     df = df.rename(columns={'entity_id': 'company_id', 'responsible_user_id': 'created_by'})
+
+    df = df.astype({'id': 'int32', 'company_id': 'int32', 'created_by': 'int32'})
 
     return df
