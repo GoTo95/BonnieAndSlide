@@ -1,0 +1,1 @@
+from bas.main import print_hi
