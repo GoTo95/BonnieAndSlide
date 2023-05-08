@@ -46,7 +46,6 @@ def load_data(get_data_func, table_name, update_field_date, last_date, id_type='
                 delete_query = '''
                     ALTER TABLE {} DELETE WHERE id IN ({})
                 '''.format(table_name, "'" + "','".join(map(str, df.iloc[i:i + step]['id'].values)) + "'")
-            print(delete_query)
             client.execute(delete_query)
             client.insert_dataframe(f'INSERT INTO {table_name} VALUES', df.iloc[i:i + step])
 
