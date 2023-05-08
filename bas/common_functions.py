@@ -23,7 +23,7 @@ def load_data(get_data_func, table_name, update_field_date, last_date, id_type='
     cloud_cert = '/etc/ssl/certs/ca-certificates.crt'
     cert_file_location = local_cert if os.path.exists(local_cert) else cloud_cert
     f = open("credentials", "r")
-    creds = f.readlines()
+    creds = f.read().splitlines()
     client = Client(host=creds[0],
                     settings={'use_numpy': True},
                     user=creds[1],
