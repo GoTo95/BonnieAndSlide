@@ -1,3 +1,4 @@
 gitignore
 bas/ca-certificate.crt
+credentials
 test.py

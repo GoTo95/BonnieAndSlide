@@ -22,11 +22,12 @@ def load_data(get_data_func, table_name, update_field_date, last_date, id_type='
     local_cert = 'ca-certificates.crt'
     cloud_cert = '/etc/ssl/certs/ca-certificates.crt'
     cert_file_location = local_cert if os.path.exists(local_cert) else cloud_cert
-
-    client = Client(host='rc1b-ckq1cemqvctvesog.mdb.yandexcloud.net',
+    f = open("credentials", "r")
+    creds = f.readlines()
+    client = Client(host=creds[0],
                     settings={'use_numpy': True},
-                    user='black_master',
-                    password='vjsj338SSnbgv',
+                    user=creds[1],
+                    password=creds[2],
                     port=9440,
                     secure=True,
                     verify=True,
