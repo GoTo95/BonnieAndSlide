@@ -3,7 +3,7 @@ import pandas as pd
 import time
 
 
-def get_data(date_from, token):
+def get_payments(date_from, token):
     key = 'Jm8OSMY9ju2UtnBW6CHHYvRu8CdGNo4cgmBtNO2skBjyMDaSgF5WoXwlvERhjmms37d1UZ9YY3U7vhmnHvdrbyRXsx7KSxefL6AfNYIHguw4HXppIsfMcrYqvpW0p6gt'
     r_text = 'https://bonnieandslide.getcourse.ru/pl/api/account/payments?key={}&created_at[from]={}'.format(key,
                                                                                                              date_from)
