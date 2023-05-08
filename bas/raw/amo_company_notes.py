@@ -32,18 +32,18 @@ def get_company_notes(date_from, token):
 
             chunk = chunk.replace({np.nan: None})
             df = df.append(chunk)
-            page = r.get('_page')
 
             params['page'] += 1
         else:
             print(f'http status code is {status}')
             break
 
-    needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'responsible_user_id', 'note_type']
+    if len(df) > 0:
+        needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'responsible_user_id', 'note_type']
 
-    df = df[needed_columns]
-    df = df.rename(columns={'entity_id': 'company_id', 'responsible_user_id': 'created_by'})
+        df = df[needed_columns]
+        df = df.rename(columns={'entity_id': 'company_id', 'responsible_user_id': 'created_by'})
 
-    df = df.astype({'id': 'int32', 'company_id': 'int32', 'created_by': 'int32'})
+        df = df.astype({'id': 'int32', 'company_id': 'int32', 'created_by': 'int32'})
 
     return df
