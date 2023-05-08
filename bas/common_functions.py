@@ -25,7 +25,7 @@ def get_last_date(client, table, field_name, last_date='2022-01-01 00:00:01'):
     return str(client.execute(check_query)[0][0])
 
 
-def main(get_data_func, table_name, update_field_date, last_date):
+def load_data(get_data_func, table_name, update_field_date, last_date):
     local_cert = 'ca-certificates.crt'
     cloud_cert = '/etc/ssl/certs/ca-certificates.crt'
     cert_file_location = local_cert if os.path.exists(local_cert) else cloud_cert
