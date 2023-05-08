@@ -2,9 +2,7 @@ import requests
 import pandas as pd
 import numpy as np
 from datetime import datetime
-from clickhouse_driver import Client
 from urllib import parse
-from bas.common_functions import get_token, get_last_date
 
 
 def get_field_val(row, field_name):
@@ -46,7 +44,7 @@ def get_tags(row):
     return ','.join(array_tags)
 
 
-def get_data(date_from, token):
+def get_leads(date_from, token):
     _url = 'https://testbonnieandslide.amocrm.ru/api/v4/leads'
     headers = {
         "Authorization": "Bearer " + token
