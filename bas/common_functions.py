@@ -18,9 +18,9 @@ def get_token(client):
 
 def get_last_date(client, table, field_name, last_date='2022-01-01 00:00:01'):
     check_query = '''
-        select if(max({{field_name}}) = CAST('1970-01-01 00:00:01', 'datetime'), CAST('2022-01-01 00:00:01', 'datetime'),MAX({{field_name}})) as max_date
-        from {{table}}
-    '''.format({'field_name': field_name, 'table': table})
+        select if(max({field_name}) = CAST('1970-01-01 00:00:01', 'datetime'), CAST('2022-01-01 00:00:01', 'datetime'),MAX({field_name})) as max_date
+        from {table}
+    '''
     print(check_query)
     return str(client.execute(check_query)[0][0])
 
@@ -46,9 +46,9 @@ def main(get_data_func, table_name, update_field_date, last_date):
     if len(df) > 0:
         for i in range(0, len(df), step):
             delete_query = '''
-                ALTER TABLE {{table_name}} DELETE WHERE id IN ({})
+                ALTER TABLE {table_name} DELETE WHERE id IN ({})
             '''.format(','.join(map(str, df.iloc[i:i + step]['id'].values)))
             client.execute(delete_query)
-            client.insert_dataframe('INSERT INTO {{table_name}} VALUES', df.iloc[i:i + step])
+            client.insert_dataframe('INSERT INTO {table_name} VALUES', df.iloc[i:i + step])
 
     return {'Rows inserted': len(df)}
