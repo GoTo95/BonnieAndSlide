@@ -1,1 +1,2 @@
-from bas.main import print_hi
+from bas.common_functions import get_token
+from bas.common_functions import get_last_date
