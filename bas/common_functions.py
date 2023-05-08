@@ -1,12 +1,6 @@
-import requests
-import pandas as pd
-import numpy as np
-import time
-from datetime import datetime
 import os
 from clickhouse_driver import Client
 import warnings
-from urllib import parse
 
 warnings.filterwarnings('ignore')
 
@@ -21,7 +15,6 @@ def get_last_date(client, table, field_name, last_date='2022-01-01 00:00:01'):
         select if(max({field_name}) = CAST('1970-01-01 00:00:01', 'datetime'), CAST('2022-01-01 00:00:01', 'datetime'),MAX({field_name})) as max_date
         from {table}
     '''
-    print(check_query)
     return str(client.execute(check_query)[0][0])
 
 
