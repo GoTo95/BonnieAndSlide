@@ -18,7 +18,7 @@ def get_last_date(client, table, field_name, last_date='2022-01-01 00:00:01'):
     return str(client.execute(check_query)[0][0])
 
 
-def load_data(get_data_func, table_name, update_field_date, last_date):
+def load_data(get_data_func, table_name, update_field_date, last_date, id_type='int'):
     local_cert = 'ca-certificates.crt'
     cloud_cert = '/etc/ssl/certs/ca-certificates.crt'
     cert_file_location = local_cert if os.path.exists(local_cert) else cloud_cert
@@ -38,9 +38,14 @@ def load_data(get_data_func, table_name, update_field_date, last_date):
     step = 500
     if len(df) > 0:
         for i in range(0, len(df), step):
-            delete_query = '''
-                ALTER TABLE {} DELETE WHERE id IN ({})
-            '''.format(table_name, ','.join(map(str, df.iloc[i:i + step]['id'].values)))
+            if id_type == 'int':
+                delete_query = '''
+                    ALTER TABLE {} DELETE WHERE id IN ({})
+                '''.format(table_name, ','.join(map(str, df.iloc[i:i + step]['id'].values)))
+            else:
+                delete_query = '''
+                    ALTER TABLE {} DELETE WHERE id IN ({})
+                '''.format(table_name, "'" + "','".join(map(str, df.iloc[i:i + step]['id'].values)) + "'")
             print(delete_query)
             client.execute(delete_query)
             client.insert_dataframe(f'INSERT INTO {table_name} VALUES', df.iloc[i:i + step])
