@@ -29,7 +29,7 @@ def get_payments(date_from, token):
                   'type', 'status', 'amount', 'commission',
                   'received', 'code', 'name']
 
-    for column in ['payment_amount', 'payment_comission', 'recieved']:
+    for column in ['amount', 'commission', 'received']:
         df[column] = df[column].str.replace(' руб.', '')
         df[column] = df[column].str.replace(' ', '')
     df['order_number'] = df['order_number'].replace('', -1)
