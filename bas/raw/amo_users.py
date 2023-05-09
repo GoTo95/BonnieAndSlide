@@ -46,7 +46,6 @@ def get_users(date_from, token):
 
             params['page'] += 1
         else:
-            print(f'http status code is {status}')
             break
 
     needed_columns = ['id', 'name', 'email']

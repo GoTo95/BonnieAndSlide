@@ -35,7 +35,6 @@ def get_company_notes(date_from, token):
 
             params['page'] += 1
         else:
-            print(f'http status code is {status}')
             break
 
     if len(df) > 0:

@@ -25,13 +25,14 @@ def get_payments(date_from, token):
         result = requests.get(r_text).json()
 
     df = pd.DataFrame.from_dict(result['info']['items'])
-    df.columns = ['payment_id', 'user_name', 'email', 'order_number', 'payment_created_at',
-                  'payment_type', 'payment_status', 'payment_amount', 'payment_comission',
-                  'recieved', 'payment_code', 'payment_name']
+    df.columns = ['id', 'user_name', 'email', 'order_number', 'created_at',
+                  'type', 'status', 'amount', 'commission',
+                  'received', 'code', 'name']
 
     for column in ['payment_amount', 'payment_comission', 'recieved']:
         df[column] = df[column].str.replace(' руб.', '')
         df[column] = df[column].str.replace(' ', '')
     df['order_number'] = df['order_number'].replace('', -1)
+
     # df = df[df['payment_created_at'] > date_from]
     return df

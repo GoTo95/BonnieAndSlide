@@ -33,13 +33,8 @@ def get_contact_notes(date_from, token):
 
             chunk = chunk.replace({np.nan: None})
             df = df.append(chunk)
-            page = r.get('_page')
-
             params['page'] += 1
-            if params['page'] % 100 == 0:
-                print(params['page'], chunk['updated_at'].min())
         else:
-            print(f'http status code is {status}')
             break
 
     needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'responsible_user_id', 'note_type']

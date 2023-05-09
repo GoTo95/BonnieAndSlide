@@ -57,7 +57,6 @@ def get_contacts(date_from, token):
 
             params['page'] += 1
         else:
-            print(f'http status code is {status}')
             break
 
     for field in ('utm_campaign', 'utm_source', 'utm_medium', 'utm_term', 'utm_content'):

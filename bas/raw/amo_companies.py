@@ -46,10 +46,7 @@ def get_companies(date_from, token):
             df = df.append(chunk)
 
             params['page'] += 1
-            if params['page'] % 100 == 0:
-                print(params['page'], chunk['updated_at'].min())
         else:
-            print(f'http status code is {status}')
             break
 
     df['lead_id'] = df['_embedded'].apply(

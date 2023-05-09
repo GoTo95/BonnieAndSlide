@@ -43,11 +43,8 @@ def get_events(date_from, token):
 
                 chunk = chunk.replace({np.nan: None})
                 df = df.append(chunk)
-            page = r.get('_page')
-
             params['page'] += 1
         else:
-            print(f'http status code is {status}')
             break
 
     if len(df) > 0:

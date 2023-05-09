@@ -65,8 +65,6 @@ def get_tasks(date_from, token):
     iteration = 0
     while next_url:
         iteration += 1
-        if iteration % 10 == 0:
-            print(iteration)
         resp = requests.get(next_url, params=params, headers=headers)
         status = resp.status_code
         if status == 200:
@@ -82,7 +80,6 @@ def get_tasks(date_from, token):
             df = df.append(chunk)
             next_url = r['_links'].get('next', {}).get('href')
         else:
-            print(f'http answer code is {status}')
             break
     if len(df) > 0:
         needed_columns = ['id', 'created_at', 'updated_at', 'text', 'duration', 'complete_till', 'is_completed',
