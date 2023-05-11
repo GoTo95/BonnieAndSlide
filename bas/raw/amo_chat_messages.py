@@ -33,10 +33,7 @@ def get_chat_messages(date_from, token):
             df = df.append(chunk)
 
             params['page'] += 1
-            if params['page'] % 100 == 0:
-                print(params['page'], chunk['created_at'].min())
         else:
-            print(f'http status code is {status}')
             break
 
     needed_columns = ['id', 'entity_id', 'created_at', 'created_by', 'entity_type', 'type']
