@@ -4,6 +4,12 @@ import numpy as np
 from datetime import datetime
 
 
+import requests
+import pandas as pd
+import numpy as np
+from datetime import datetime
+
+
 def get_contact_notes(date_from, token):
     _url = 'https://testbonnieandslide.amocrm.ru/api/v4/contacts/notes'
     headers = {
@@ -32,14 +38,19 @@ def get_contact_notes(date_from, token):
             chunk['updated_at'] = chunk['updated_at'].apply(datetime.fromtimestamp)
 
             chunk = chunk.replace({np.nan: None})
-            df = df.append(chunk)
+            df = pd.concat([df, chunk])
             params['page'] += 1
         else:
             break
 
-    needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'responsible_user_id', 'note_type']
+    if len(df) > 0:
+        df['created_by_message'] = df['params'].apply(lambda x: x['owner_id'] if 'owner_id' in x.keys() else None)
+        df.loc[df['created_by_message'].isna(), 'created_by_message'] = df[df['created_by_message'].isna()]['created_by']
+        df['created_by'] = df['created_by_message']
 
-    df = df[needed_columns]
-    df = df.rename(columns={'entity_id': 'contact_id', 'responsible_user_id': 'created_by'})
+        needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'created_by', 'note_type']
+
+        df = df[needed_columns]
+        df = df.rename(columns={'entity_id': 'contact_id'})
 
     return df
