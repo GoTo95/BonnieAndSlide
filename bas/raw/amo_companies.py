@@ -26,8 +26,6 @@ def get_companies(date_from, token):
     last_created_at = datetime.strptime(date_from, '%Y-%m-%dT%H:%M:%S')
     params = {
         'page': 1,
-        "filter[updated_at][from]": int(last_created_at.timestamp()),
-        "filter[updated_at][to]": int(datetime.now().timestamp()),
         "limit": 250,
         'with': 'leads,contacts'
     }
