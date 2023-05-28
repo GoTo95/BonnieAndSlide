@@ -121,7 +121,7 @@ def get_leads(date_from, token):
             chunk['assumed_payment_date'] = chunk[chunk['assumed_payment_date'].notna()][
                                                 'assumed_payment_date'] + pd.DateOffset(hours=12)
             chunk['assumed_payment_date'] = pd.to_datetime(
-                chunk[chunk['assumed_payment_date'].notna()]['assumed_payment_date']).dt.round('D')
+                chunk[chunk['assumed_payment_date'].notna()]['assumed_payment_date']).dt.to_period('D')
 
             chunk['closest_task_at'] = chunk[chunk['closest_task_at'].notna()]['closest_task_at'].apply(
                 datetime.fromtimestamp
