@@ -23,7 +23,6 @@ def get_companies(date_from, token):
         "Authorization": "Bearer " + token
     }
 
-    last_created_at = datetime.strptime(date_from, '%Y-%m-%dT%H:%M:%S')
     params = {
         'page': 1,
         "limit": 250,
