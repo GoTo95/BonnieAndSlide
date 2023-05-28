@@ -4,5 +4,5 @@ setup(
     name='bonnie',
     url='https://github.com/GoTo95/BonnieAndSlide',
     packages=find_packages(),
-    version='1.1'
+    version='1.2'
 )
