@@ -7,11 +7,6 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-def get_token(client):
-    access_token = client.execute("SELECT token FROM db1.tokens WHERE type = 'access_token'")[0][0]
-    return access_token
-
-
 def get_field_val(row, field_name):
     if type(row) == list:
         for field in row:
