@@ -39,6 +39,7 @@ def get_contacts(date_from, token):
     params = {
         'page': 1,
         "filter[updated_at][from]": int(last_created_at.timestamp()),
+        "filter[updated_at][to]": int(datetime.now().timestamp()),
         "limit": 250,
     }
 
@@ -52,8 +53,8 @@ def get_contacts(date_from, token):
             chunk = pd.DataFrame(r['_embedded']['contacts'])
             chunk = chunk.replace({np.nan: None})
             chunk['created_at'] = chunk['created_at'].apply(datetime.fromtimestamp)
+            chunk['updated_at'] = chunk['updated_at'].apply(datetime.fromtimestamp)
             df = df.append(chunk)
-            page = r.get('_page')
 
             params['page'] += 1
         else:
