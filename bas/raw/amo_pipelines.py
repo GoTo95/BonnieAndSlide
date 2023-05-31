@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-def get_pipelines(token):
+def get_pipelines(date_from, token):
     _url = 'https://testbonnieandslide.amocrm.ru/api/v4/leads/pipelines'
     headers = {
         "Authorization": "Bearer " + token
