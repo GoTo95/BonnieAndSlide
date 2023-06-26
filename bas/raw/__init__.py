@@ -10,3 +10,4 @@ from bas.raw.payments import get_payments
 from bas.raw.amo_company_notes import get_company_notes
 from bas.raw.amo_chat_messages import get_chat_messages
 from bas.raw.amo_pipelines import get_pipelines
+from bas.raw.amo_payments import get_amo_payments
