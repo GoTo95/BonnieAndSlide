@@ -69,47 +69,37 @@ def get_leads(date_from, token):
             r = resp.json()
             chunk = pd.DataFrame(r['_embedded']['leads'])
 
-            chunk['referrer'] = chunk[chunk['is_deleted'] == False]['custom_fields_values'].apply(
-                lambda row, field_name='referrer': get_field_val(row, field_name)
-            )
+            fields = {
+                'referrer': 'referrer',
+                'getcourse_deal_id': 'GetCourseId',
+                'getcourse_deal_number': 'GetCourse deal_number',
+                'assumed_payment_date': 'Дата оплаты',
+                'gclientid': 'gclientid',
+                'web_id': 'web_id',
+                'course': 'Курс',
+                'utm_source': 'utm_source',
+                'utm_medium': 'utm_medium',
+                'utm_campaign': 'utm_campaign',
+                'utm_content': 'utm_content'
+            }
 
-            chunk['getcourse_deal_id'] = chunk[chunk['is_deleted'] == False]['custom_fields_values'].apply(
-                lambda row, field_name='GetCourseId': get_field_val(row, field_name)
-            )
-
-            chunk['getcourse_deal_number'] = chunk['custom_fields_values'].apply(
-                lambda row, field_name='GetCourse deal_number': get_field_val(row, field_name)
-            )
-
-            chunk['assumed_payment_date'] = chunk[chunk['is_deleted'] == False]['custom_fields_values'].apply(
-                lambda row, field_name='Дата оплаты': get_field_val(row, field_name)
-            )
-
-            chunk['gclientid'] = chunk[chunk['is_deleted'] == False]['custom_fields_values'].apply(
-                lambda row, field_name='gclientid': get_field_val(row, field_name)
-            )
+            for key, value in fields.items():
+                chunk[key] = chunk[chunk['is_deleted'] == False]['custom_fields_values'].apply(
+                    lambda row, field_name=value: get_field_val(row, field_name)
+                )
 
             chunk['url_values'] = chunk[chunk['is_deleted'] == False]['custom_fields_values'].apply(
                 lambda row, field_name='__utm_custom_cookies': get_url_values(row, field_name)
-            )
-
-            chunk['web_id'] = chunk[chunk['is_deleted'] == False]['custom_fields_values'].apply(
-                lambda row, field_name='web_id': get_field_val(row, field_name)
-            )
-
-            chunk['course'] = chunk[chunk['is_deleted'] == False]['custom_fields_values'].apply(
-                lambda row, field_name='Курс': get_field_val(row, field_name)
             )
 
             chunk['tags'] = chunk[chunk['is_deleted'] == False]['_embedded'].apply(
                 lambda row: get_tags(row)
             )
 
-            utm_chunk = chunk['url_values'].apply(pd.Series)
+            utm_chunk = chunk[chunk['url_values'] != '']['url_values'].apply(pd.Series)
             for utm in ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']:
-                chunk[utm] = ''
                 if utm in utm_chunk.columns:
-                    chunk[utm] = utm_chunk[utm]
+                    chunk[chunk['url_values'] != ''][utm] = utm_chunk[utm]
 
             chunk['created_at'] = chunk['created_at'].apply(datetime.fromtimestamp)
             chunk['updated_at'] = chunk['updated_at'].apply(datetime.fromtimestamp)
@@ -121,7 +111,8 @@ def get_leads(date_from, token):
             chunk['assumed_payment_date'] = chunk[chunk['assumed_payment_date'].notna()][
                                                 'assumed_payment_date'] + pd.DateOffset(hours=12)
             chunk['assumed_payment_date'] = pd.to_datetime(
-                chunk[chunk['assumed_payment_date'].notna()]['assumed_payment_date']).dt.to_period('D').astype('datetime64[M]')
+                chunk[chunk['assumed_payment_date'].notna()]['assumed_payment_date']).dt.to_period('D').astype(
+                'datetime64[M]')
 
             chunk['closest_task_at'] = chunk[chunk['closest_task_at'].notna()]['closest_task_at'].apply(
                 datetime.fromtimestamp
