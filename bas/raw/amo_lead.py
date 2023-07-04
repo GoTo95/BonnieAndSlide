@@ -130,7 +130,7 @@ def get_leads(date_from, token):
         needed_columns = ['id', 'price', 'created_at', 'gclientid', 'updated_at', 'name', 'pipeline_id', 'status_id',
                           'web_id',
                           'getcourse_deal_id', 'getcourse_deal_number', 'lost_reason', 'contact_id', 'referrer',
-                          'responsible_user_id',
+                          'responsible_user_id', 'closed_at', 'closest_task_at',
                           'assumed_payment_date', 'course', 'tags', 'utm_source', 'utm_medium', 'utm_campaign',
                           'utm_content']
 
