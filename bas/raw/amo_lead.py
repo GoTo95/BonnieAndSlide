@@ -96,10 +96,10 @@ def get_leads(date_from, token):
                 lambda row: get_tags(row)
             )
 
-            utm_chunk = chunk[chunk['url_values'] != '']['url_values'].apply(pd.Series)
+            utm_chunk = chunk['url_values'].apply(pd.Series)
             for utm in ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']:
                 if utm in utm_chunk.columns:
-                    chunk[chunk['url_values'] != ''][utm] = utm_chunk[utm]
+                    chunk[utm] = utm_chunk[utm]
 
             chunk['created_at'] = chunk['created_at'].apply(datetime.fromtimestamp)
             chunk['updated_at'] = chunk['updated_at'].apply(datetime.fromtimestamp)
