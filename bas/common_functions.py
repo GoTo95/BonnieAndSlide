@@ -12,7 +12,7 @@ def get_token(client):
 
 def get_last_date(client, table, field_name, last_date='2022-01-01 00:00:01'):
     check_query = f'''
-        select if(max({field_name}) = CAST('1970-01-01 00:00:01', 'datetime'), CAST('2022-01-01 00:00:01', 'datetime'),MAX({field_name})) as max_date
+        select if(max({field_name}) = CAST('1970-01-01 00:00:01', 'datetime'), CAST('{last_date}', 'datetime'),MAX({field_name})) as max_date
         from {table}
     '''
     return str(client.execute(check_query)[0][0])
