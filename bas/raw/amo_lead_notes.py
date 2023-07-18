@@ -4,8 +4,8 @@ import numpy as np
 from datetime import datetime
 
 
-def get_contact_notes(date_from, token):
-    _url = 'https://testbonnieandslide.amocrm.ru/api/v4/contacts/notes'
+def get_lead_notes(date_from, token):
+    _url = 'https://testbonnieandslide.amocrm.ru/api/v4/leads/notes'
     headers = {
         "Authorization": "Bearer " + token
     }
@@ -16,7 +16,7 @@ def get_contact_notes(date_from, token):
         'page': 1,
         "filter[updated_at][from]": int(date_from.timestamp()),
         "filter[updated_at][to]": int(datetime.now().timestamp()),
-        "filter[note_type]": 'call_in,call_out,amomail_message',
+        "filter[note_type]": 'common',
         "limit": 250
     }
 
@@ -34,17 +34,19 @@ def get_contact_notes(date_from, token):
             chunk = chunk.replace({np.nan: None})
             df = pd.concat([df, chunk])
             params['page'] += 1
+            if params['page'] % 50 == 0:
+                print(chunk['updated_at'].max())
         else:
             break
 
     if len(df) > 0:
-        df['created_by_message'] = df['params'].apply(lambda x: x['owner_id'] if 'owner_id' in x.keys() else None)
-        df.loc[df['created_by_message'].isna(), 'created_by_message'] = df[df['created_by_message'].isna()]['created_by']
-        df['created_by'] = df['created_by_message']
+        df['text'] = df['params'].apply(lambda x: x.get('text'))
+        df = df[~df['text'].isna()]
 
-        needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'created_by', 'note_type']
+        needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'text']
 
         df = df[needed_columns]
-        df = df.rename(columns={'entity_id': 'contact_id'})
+        df = df.rename(columns={'entity_id': 'lead_id'})
 
     return df
+
