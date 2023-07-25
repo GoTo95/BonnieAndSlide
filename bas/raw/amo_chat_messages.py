@@ -40,4 +40,6 @@ def get_chat_messages(date_from, token):
 
     df = df[needed_columns]
 
+    df = df.astype({'id': 'int32', 'entity_id': 'int32', 'created_by': 'int32'})
+
     return df
