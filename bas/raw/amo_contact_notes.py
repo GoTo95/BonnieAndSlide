@@ -47,4 +47,6 @@ def get_contact_notes(date_from, token):
         df = df[needed_columns]
         df = df.rename(columns={'entity_id': 'contact_id'})
 
+        df = df.astype({'id': 'int32', 'contact_id': 'int32', 'created_by': 'int32'})
+
     return df
