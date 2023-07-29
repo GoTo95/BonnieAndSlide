@@ -48,7 +48,7 @@ def get_calls(date_from, token):
         df['call_status'] = df['params'].apply(lambda x: x['call_status'])
 
         needed_columns = ['id', 'entity_id', 'created_at', 'updated_at', 'responsible_user_id', 'call_status',
-                          'call_result', 'duration', 'note_type']
+                          'call_result', 'duration', 'note_type', 'created_by']
 
         df = df[needed_columns]
         df = df.rename(columns={'entity_id': 'contact_id', 'note_type': 'type'})
