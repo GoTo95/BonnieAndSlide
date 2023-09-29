@@ -8,8 +8,6 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
-last_updated_at = datetime.strptime(date_from, '%Y-%m-%dT%H:%M:%S')
-
 def get_leads(row):
     return [el['id'] for el in row['leads']]
 
@@ -19,6 +17,8 @@ def get_contacts(row):
 
 
 def get_companies(date_from, token):
+    last_updated_at = datetime.strptime(date_from, '%Y-%m-%dT%H:%M:%S')
+
     _url = 'https://testbonnieandslide.amocrm.ru/api/v4/companies'
     headers = {
         "Authorization": "Bearer " + token
