@@ -8,6 +8,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
+last_updated_at = datetime.strptime(date_from, '%Y-%m-%dT%H:%M:%S')
 
 def get_leads(row):
     return [el['id'] for el in row['leads']]
@@ -26,7 +27,8 @@ def get_companies(date_from, token):
     params = {
         'page': 1,
         "limit": 250,
-        'with': 'leads,contacts'
+        'with': 'leads,contacts',
+        "filter[updated_at][from]": int(last_updated_at.timestamp())
     }
 
     df = pd.DataFrame()
