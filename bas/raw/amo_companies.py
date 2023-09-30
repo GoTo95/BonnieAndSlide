@@ -8,7 +8,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
-def get_leads(row):
+def get_leads_for_companies(row):
     return [el['id'] for el in row['leads']]
 
 
@@ -49,7 +49,7 @@ def get_companies(date_from, token):
             break
 
     df['lead_id'] = df['_embedded'].apply(
-        lambda row: get_leads(row)
+        lambda row: get_leads_for_companies(row)
     )
 
     df['contact_id'] = df['_embedded'].apply(
