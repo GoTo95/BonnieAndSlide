@@ -144,6 +144,7 @@ def get_leads(date_from, token):
         else:
             break
     if len(df) > 0:
+        df.rename(columns={'__event_custom_cookies': 'event'}, inplace=True)
         needed_columns = ['id', 'price', 'created_at', 'gclientid', 'updated_at', 'name', 'pipeline_id', 'status_id',
                           'web_id',
                           'getcourse_deal_id', 'getcourse_deal_number', 'lost_reason', 'contact_id', 'referrer',
