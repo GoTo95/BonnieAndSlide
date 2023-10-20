@@ -96,7 +96,8 @@ def get_leads(date_from, token):
                 'utm_medium': 851969, #'utm_medium',
                 'utm_campaign': 851971, # 'utm_campaign',
                 'utm_content': 851967, #'utm_content'
-                'course_by_closed_deal': 1165007  # 'Курс при закрытии сделки'
+                'course_by_closed_deal': 1165007,  # 'Курс при закрытии сделки'
+                '__event_custom_cookies': 1176553  # название event'а
             }
 
             for key, value in fields.items():
@@ -148,7 +149,7 @@ def get_leads(date_from, token):
                           'getcourse_deal_id', 'getcourse_deal_number', 'lost_reason', 'contact_id', 'referrer',
                           'responsible_user_id', 'closed_at', 'closest_task_at',
                           'assumed_payment_date', 'course', 'tags', 'utm_source', 'utm_medium', 'utm_campaign',
-                          'utm_content', 'course_by_closed_deal']
+                          'utm_content', 'course_by_closed_deal', 'event']
 
         df = df[needed_columns]
 
