@@ -7,10 +7,10 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-def get_field_val(row, field_name):
+def get_field_val(row, field_id):
     if type(row) == list:
         for field in row:
-            if field['field_name'] == field_name:
+            if field['field_id'] == field_id:
                 return field['values'][0]['value']
 
 
@@ -55,9 +55,19 @@ def get_contacts(date_from, token):
         else:
             break
 
-    for field in ('utm_campaign', 'utm_source', 'utm_medium', 'utm_term', 'utm_content'):
+    fields = {
+        'utm_campaign': 1162667,
+        'utm_source': 1162663,
+        'utm_medium': 1162665,
+        'utm_term': 1162669,
+        'utm_content': 1162671,
+        'email': 851961,
+        'phone': 851959
+            }
+
+    for field in fields.keys():
         df[field] = df['custom_fields_values'].apply(
-            lambda row, field_name=field: get_field_val(row, field_name)
+            lambda row, field_id=fields.get(field): get_field_val(row, field_id)
         )
 
     df['webinars'] = df['custom_fields_values'].apply(
@@ -65,7 +75,7 @@ def get_contacts(date_from, token):
     )
 
     needed_columns = ['id', 'created_at', 'updated_at', 'responsible_user_id', 'utm_campaign', 'utm_source',
-                      'utm_medium', 'utm_term', 'utm_content', 'webinars']
+                      'utm_medium', 'utm_term', 'utm_content', 'webinars', 'email', 'phone']
     df = df[needed_columns]
 
     return df
