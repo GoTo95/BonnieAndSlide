@@ -80,7 +80,7 @@ def get_contacts(date_from, token):
     #end
 
     needed_columns = ['id', 'created_at', 'updated_at', 'responsible_user_id', 'utm_campaign', 'utm_source',
-                      'utm_medium', 'utm_term', 'utm_content', 'webinars', 'email_data', 'phone_data']
+                      'utm_medium', 'utm_term', 'utm_content', 'webinars']
     df = df[needed_columns]
 
     return df
