@@ -60,7 +60,9 @@ def get_contacts(date_from, token):
         'utm_source': 1162663,
         'utm_medium': 1162665,
         'utm_term': 1162669,
-        'utm_content': 1162671
+        'utm_content': 1162671,
+        'email': 851961,
+        'phone': 851959
             }
 
     for field in fields.keys():
@@ -72,9 +74,8 @@ def get_contacts(date_from, token):
         lambda row, field_name='Вебинар': get_webinar(row, field_name)
     )
 
-
     needed_columns = ['id', 'created_at', 'updated_at', 'responsible_user_id', 'utm_campaign', 'utm_source',
-                      'utm_medium', 'utm_term', 'utm_content', 'webinars']
+                      'utm_medium', 'utm_term', 'utm_content', 'webinars', 'email', 'phone']
     df = df[needed_columns]
 
     return df
