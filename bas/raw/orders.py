@@ -26,8 +26,8 @@ def get_orders(date_from, token):
         result = requests.get(r_text).json()
 
     df = pd.DataFrame.from_dict(result['info']['items'])
-    df = df.iloc[:, [0, 1, 2, 6, 53]]
-    df.columns = ['id', 'number', 'user_id', 'created_at', 'tag']
+    df = df.iloc[:, [0, 1, 2, 6, 7, 53]]
+    df.columns = ['id', 'number', 'user_id', 'created_at', 'updated_at', 'tag']
     df['tag'] = df['tag'].apply(lambda x: str(x))
 
     df[['id', 'number', 'user_id']] = df[['id', 'number', 'user_id']].replace('', -1).astype(int)
