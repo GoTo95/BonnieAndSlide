@@ -30,5 +30,10 @@ def get_orders(date_from, token):
     df.columns = ['id', 'number', 'user_id', 'created_at', 'updated_at', 'tag']
     df['tag'] = df['tag'].apply(lambda x: str(x))
 
+    #иногда заказ создается словно задним числом в ГК (и это действо создания в ГК происходит, видимо, в updated_at),
+    # поэтому created_at не всегда подходит, и т.к. updated_at не всегда заполнен, будем брать поочередно
+    # По сути, все ради инкремента
+    df.loc[(df['updated_at'] == '') | (df['updated_at'].isna()), 'updated_at'] = df['created_at']
+
     df[['id', 'number', 'user_id']] = df[['id', 'number', 'user_id']].replace('', -1).astype(int)
     return df
