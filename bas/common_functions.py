@@ -50,7 +50,8 @@ def load_data(get_data_func, table_name, update_field_date, last_date, id_type='
                     AND updated_at >= '{}'
                 '''.format(table_name
                           , ','.join(map(str, df.iloc[i:i + step]['id'].values))
-                          , date_from.replace('T',' '))
+                          , date_from #.replace('T',' ')
+                           )
 
             else:
                 delete_query = '''
