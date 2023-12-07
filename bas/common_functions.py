@@ -43,6 +43,15 @@ def load_data(get_data_func, table_name, update_field_date, last_date, id_type='
                 delete_query = '''
                     ALTER TABLE {} DELETE WHERE id IN ({})
                 '''.format(table_name, ','.join(map(str, df.iloc[i:i + step]['id'].values)))
+
+            elif id_type == 'other':
+                delete_query = '''
+                    ALTER TABLE {} DELETE WHERE id IN ({})
+                    AND updated_at >= '{}'
+                '''.format(table_name
+                          , ','.join(map(str, df.iloc[i:i + step]['id'].values))
+                          , date_from.replace('T',' '))
+
             else:
                 delete_query = '''
                     ALTER TABLE {} DELETE WHERE id IN ({})
