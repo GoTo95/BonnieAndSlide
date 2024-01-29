@@ -36,7 +36,7 @@ def load_data(get_data_func, table_name, update_field_date, last_date, id_type='
     date_from = get_last_date(client, table_name, update_field_date, last_date)
     token = get_token(client)
     df = get_data_func(date_from, token)
-    step = 500
+    step = 50000 #500
     if len(df) > 0:
         for i in range(0, len(df), step):
             if id_type == 'int':
