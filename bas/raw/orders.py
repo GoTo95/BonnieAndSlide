@@ -38,5 +38,5 @@ def get_orders(date_from, token):
 
     df[['id', 'number', 'user_id']] = df[['id', 'number', 'user_id']].replace('', -1).astype(int)
 
-    df['inserted_at'] = datetime.now()
+    #df['inserted_at'] = datetime.now()
     return df
