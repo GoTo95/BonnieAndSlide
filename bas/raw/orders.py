@@ -37,4 +37,6 @@ def get_orders(date_from, token):
     df.loc[(df['updated_at'] == '') | (df['updated_at'].isna()), 'updated_at'] = df['created_at']
 
     df[['id', 'number', 'user_id']] = df[['id', 'number', 'user_id']].replace('', -1).astype(int)
+
+    df['inserted_at'] = datetime.now()
     return df
