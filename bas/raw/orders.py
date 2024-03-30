@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 def get_orders(date_from, token):
     date_from_with_lag = datetime.strptime(date_from, '%Y-%m-%dT%H:%M:%S') - timedelta(31) #попробуем забирать каждый раз за последние 31 день, т.к. в ГК задним числом что-то появляется
     key = 'Jm8OSMY9ju2UtnBW6CHHYvRu8CdGNo4cgmBtNO2skBjyMDaSgF5WoXwlvERhjmms37d1UZ9YY3U7vhmnHvdrbyRXsx7KSxefL6AfNYIHguw4HXppIsfMcrYqvpW0p6gt'
-    r_text = 'https://bonnieandslide.getcourse.ru/pl/api/account/deals?key={}&created_at[from]={}'.format(key,
+    r_text = 'https://bonnieandslide.getcourse.ru/pl/api/account/deals?key={}&status_changed_at[from]={}'.format(key,
                                                                                                           date_from_with_lag) #date_from)
     res = requests.get(r_text).json()
 
