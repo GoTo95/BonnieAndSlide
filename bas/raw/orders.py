@@ -8,7 +8,7 @@ def get_orders(date_from, token):
     date_from_with_lag = datetime.strptime(date_from, '%Y-%m-%dT%H:%M:%S') - timedelta(3)
     key = 'Jm8OSMY9ju2UtnBW6CHHYvRu8CdGNo4cgmBtNO2skBjyMDaSgF5WoXwlvERhjmms37d1UZ9YY3U7vhmnHvdrbyRXsx7KSxefL6AfNYIHguw4HXppIsfMcrYqvpW0p6gt'
     r_text = 'https://bonnieandslide.getcourse.ru/pl/api/account/deals?key={}&status_changed_at[from]={}'.format(key,
-                                                                                                          date_from_with_lag) #date_from)
+                                                                                                          date_from) #date_from_with_lag)
     res = requests.get(r_text).json()
 
     while res.get('error_code') == 905:
