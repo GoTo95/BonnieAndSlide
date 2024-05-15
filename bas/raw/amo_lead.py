@@ -96,6 +96,7 @@ def get_leads(date_from, token):
                 'utm_medium': 851969, #'utm_medium',
                 'utm_campaign': 851971, # 'utm_campaign',
                 'utm_content': 851967, #'utm_content'
+                'utm_term' : 851975, #utm_term
                 'course_by_closed_deal': 1165007,  # 'Курс при закрытии сделки'
                 '__event_custom_cookies': 1176553  # название event'а
             }
@@ -114,7 +115,7 @@ def get_leads(date_from, token):
             )
 
             utm_chunk = chunk['url_values'].apply(pd.Series)
-            for utm in ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']:
+            for utm in ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']:
                 if utm in utm_chunk.columns:
                     chunk[utm] = utm_chunk[utm]
 
@@ -150,7 +151,7 @@ def get_leads(date_from, token):
                           'getcourse_deal_id', 'getcourse_deal_number', 'lost_reason', 'contact_id', 'referrer',
                           'responsible_user_id', 'closed_at', 'closest_task_at',
                           'assumed_payment_date', 'course', 'tags', 'utm_source', 'utm_medium', 'utm_campaign',
-                          'utm_content', 'course_by_closed_deal', 'event']
+                          'utm_content', 'course_by_closed_deal', 'event','utm_term']
 
         df = df[needed_columns]
 
