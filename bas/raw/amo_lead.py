@@ -152,8 +152,9 @@ def get_leads(date_from, token):
                           'getcourse_deal_id', 'getcourse_deal_number', 'lost_reason', 'contact_id', 'referrer',
                           'responsible_user_id', 'closed_at', 'closest_task_at',
                           'assumed_payment_date', 'course', 'tags', 'utm_source', 'utm_medium', 'utm_campaign',
-                          'utm_content', 'course_by_closed_deal', 'event','utm_term',
-                          'referrer_list']
+                          'utm_content', 'course_by_closed_deal', 'event','utm_term'
+                          #'referrer_list'
+                          ]
 
         df = df[needed_columns]
 
@@ -168,5 +169,7 @@ def get_leads(date_from, token):
         df[['getcourse_deal_id', 'getcourse_deal_number', 'pipeline_id', 'status_id']] = \
             df[['getcourse_deal_id', 'getcourse_deal_number', 'pipeline_id', 'status_id']].replace('', -1).fillna(
                 -1).astype(int)
+
+        df['referrer_list'] = 'test' #test
 
     return df
