@@ -99,7 +99,8 @@ def get_leads(date_from, token):
                 'utm_term' : 851975, #utm_term
                 'course_by_closed_deal': 1165007,  # 'Курс при закрытии сделки'
                 '__event_custom_cookies': 1176553,  # название event'а
-                'referrer_list': 1183709  # все реферреры что были у лида
+                'referrer_list': 1183709,  # все реферреры что были у лида
+                'promocode': 1117007  # промокод при оплате
             }
 
             for key, value in fields.items():
@@ -153,7 +154,7 @@ def get_leads(date_from, token):
                           'responsible_user_id', 'closed_at', 'closest_task_at',
                           'assumed_payment_date', 'course', 'tags', 'utm_source', 'utm_medium', 'utm_campaign',
                           'utm_content', 'course_by_closed_deal', 'event','utm_term',
-                          'referrer_list']
+                          'referrer_list', 'promocode']
 
         df = df[needed_columns]
 
