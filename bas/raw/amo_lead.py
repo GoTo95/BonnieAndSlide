@@ -70,20 +70,6 @@ def get_leads(date_from, token):
             r = resp.json()
             chunk = pd.DataFrame(r['_embedded']['leads'])
 
-            # fields = {
-            #     'referrer': 'referrer',
-            #     'getcourse_deal_id': 'GetCourseId',
-            #     'getcourse_deal_number': 'GetCourse deal_number',
-            #     'assumed_payment_date': 'Дата оплаты',
-            #     'gclientid': 'gclientid',
-            #     'web_id': 'web_id',
-            #     'course': 'Курс',
-            #     'utm_source': 'utm_source',
-            #     'utm_medium': 'utm_medium',
-            #     'utm_campaign': 'utm_campaign',
-            #     'utm_content': 'utm_content'
-            # }
-
             fields = {
                 'referrer': 1143965, #'referrer',
                 'getcourse_deal_id': 1052443, #'GetCourseId',
@@ -100,7 +86,8 @@ def get_leads(date_from, token):
                 'course_by_closed_deal': 1165007,  # 'Курс при закрытии сделки'
                 '__event_custom_cookies': 1176553,  # название event'а
                 'referrer_list': 1183709,  # все реферреры что были у лида
-                'promocode': 1117007  # промокод при оплате
+                'promocode': 1117007,  # промокод при оплате
+                '_ym_uid': 851995 # ClientID из ЯМетрики
             }
 
             for key, value in fields.items():
@@ -154,7 +141,7 @@ def get_leads(date_from, token):
                           'responsible_user_id', 'closed_at', 'closest_task_at',
                           'assumed_payment_date', 'course', 'tags', 'utm_source', 'utm_medium', 'utm_campaign',
                           'utm_content', 'course_by_closed_deal', 'event','utm_term',
-                          'referrer_list', 'promocode']
+                          'referrer_list', 'promocode', '_ym_uid']
 
         df = df[needed_columns]
 
